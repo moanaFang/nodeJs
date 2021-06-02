@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promise</title>
+</head>
+<body>
+  <script>
+    // callback function hell
+    
+    new Promise((resolve, reject) => {
+      let rnd = Math.random() * 1500;
+      setTimeout(() => {
+        resolve('1:' + rnd); // 只能傳一個參數，若要多個要傳array
+      }, 1000);
+    })
+    .then(r => {
+      console.log(r);
+      return 7;
+    })
+    .then(r => {
+      console.log(r);
+      return new Promise((resolve, reject) => {
+        const rnd = Math.random() * 1500;
+        setTimeout(() => {
+          resolve('2:' + rnd);
+        }, 1000);
+      })
+    })
+    .then(r => {
+      console.log(r);
+    })
+  </script>
+</body>
+</html>
