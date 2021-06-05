@@ -12,7 +12,10 @@ const app = express();
 app.set('view engine', 'ejs');
 
 // urlencoded處理form enctype application/x-www-form-urlencoded，但multipart/form-data則不行
-const urlencodeedParser = express.urlencoded({extended: false}); //middleware 中介軟體。false，querystring
+
+// const urlencodeedParser = express.urlencoded({extended: false}); //middleware 中介軟體。false，querystring
+app.use(express.urlencoded({extended: false}));  // middleware // 中介軟體
+// app.use(express.json()); 
 
 // node express 先定義的優先。每定義一個路由，push到陣列。比對路由，從前面開始比對。
 
@@ -43,7 +46,7 @@ app.get('/try-qs', (req, res) => {
     res.json(req.query); //json格式輸出
 });
 
-
+// const urlencodeedParser = express.urlencoded({extended: false}); //middleware 中介軟體。false，querystring
 app.post('/try-post',urlencodeedParser  ,(req, res) => {
     res.json(req.body); //req沒有body的屬性，它來自middleware
 });
@@ -75,4 +78,4 @@ app.use((req, res)=>{
 
 app.listen(port, () => {
     console.log(`server started: ${port}`);
-});
+ });
