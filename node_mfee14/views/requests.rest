@@ -1,0 +1,4 @@
+GET http://localhost:3001/
+
+### abc
+GET http://localhost:3001/try-qs?a[name]=bill&[age]=25

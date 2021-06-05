@@ -4,11 +4,15 @@ require("dotenv").config();
 
 const port = process.env.port || 3000;
 
+const { urlencoded } = require("express");
 const express = require("express");
 
 const app = express();
 
 app.set('view engine', 'ejs');
+
+// urlencoded處理form enctype application/x-www-form-urlencoded，但multipart/form-data則不行
+const urlencodeedParser = express.urlencoded({extended: false}); //middleware 中介軟體。false，querystring
 
 // node express 先定義的優先。每定義一個路由，push到陣列。比對路由，從前面開始比對。
 
@@ -19,6 +23,10 @@ app.set('view engine', 'ejs');
 // server端的render，會將用戶端要的html生出來，ex:PHP
 // app.use(express.static('public')); //啟動路徑改變，會找不到
 app.use(express.static(__dirname + "/../public"));
+
+// app.get("/abc/def", (req, res) => {
+//     res.render('home', {name:'Moana'})
+// });
 
 app.get("/", (req, res) => {
     res.render('home', {name:'Moana'})
@@ -33,6 +41,11 @@ app.get('/json-test',(req,res) => {
 
 app.get('/try-qs', (req, res) => {
     res.json(req.query); //json格式輸出
+});
+
+
+app.post('/try-post',urlencodeedParser  ,(req, res) => {
+    res.json(req.body); //req沒有body的屬性，它來自middleware
 });
 
 // app.get("/", (req, res) => {
