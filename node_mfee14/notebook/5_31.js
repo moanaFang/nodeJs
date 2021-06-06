@@ -1,7 +1,13 @@
 /*參考網站
 body-parser: https://www.npmjs.com/package/body-parser
 multer: https://www.npmjs.com/package/multer#readme
+uuid: https://www.npmjs.com/package/uuid
 urlencoded true : https://segmentfault.com/a/1190000004407008
+promise: https://wcc723.github.io/javascript/2017/12/30/javascript-async-await/
+淺顯易懂的小明跑步的故事(async await)
+
+關鍵字
+doc docx mimetype
 */
 
 /*npm網站

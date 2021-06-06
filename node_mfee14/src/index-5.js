@@ -8,8 +8,6 @@ const { urlencoded } = require("express");
 const express = require("express");
 const multer = require('multer');
 const upload = multer({dest:'tmp_uploads/'}); //設定上傳暫存目錄
-const {v4: uuidv4} = require('uuid'); //將v4物件的名稱改為uuidv4 
-const fs = require('fs');
 
 const app = express();
 
@@ -68,25 +66,13 @@ app.get('/try-upload', (req,res) => {
     res.render('try-upload');
 })
 
-const extMap = {
-    'image/png' : '.png',
-    'image/jpeg' : '.jpg',
-};
-
 // 單一檔案上傳avatar欄位
-app.post('/try-upload', upload.single('avatar'),async (req,res) => {
+app.post('/try-upload', upload.single('avatar'), (req,res) => {
     console.log(req.file);
     // res.json(req.file);
-    // 上傳成功有圖: http://localhost:3001/img/83f98c7d-e252-4d07-aca3-5c95e0ef61b1.jpg
-    let newName = '';
-    if(extMap[req.file.mimetype]) {
-        newName = uuidv4() + extMap[req.file.mimetype];
-        await fs.promises.rename(req.file.path, './public/img/' + newName)
-    }
     res.json({
         file: req.file,
-        body: req.body,
-        newName
+        body: req.body
     })
 });
 
@@ -98,13 +84,6 @@ app.post('/try-uploads', upload.array('photo'), (req,res) => {
         file: req.files,
         body: req.body
     })
-});
-
-// network 有 request headers，沒有 response headers,伺服器還沒回應。
-// 瀏覽器timeout才會回應或是斷線。
-// 客戶端有連到server端，server端一直沒有回應。客戶端收不到資料。
-app.get('/pending',(req,res) => {
-//   res.render('try-upload');
 });
 
 // app.get("/", (req, res) => {
