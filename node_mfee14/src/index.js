@@ -6,6 +6,8 @@ const port = process.env.port || 3000;
 
 const { urlencoded } = require("express");
 const express = require("express");
+const multer = require('multer');
+const upload = multer({dest:'tmp_uploads/'}); //設定上傳暫存目錄
 
 const app = express();
 
@@ -58,6 +60,30 @@ app.get('/try-post-from',(req,res) => {
 app.post('/try-post-from', urlencodeedParser, (req, res) => {
     // res.json(req.body);
     res.render('try-post-from', req.body);
+});
+
+app.get('/try-upload', (req,res) => {
+    res.render('try-upload');
+})
+
+// 單一檔案上傳avatar欄位
+app.post('/try-upload', upload.single('avatar'), (req,res) => {
+    console.log(req.file);
+    // res.json(req.file);
+    res.json({
+        file: req.file,
+        body: req.body
+    })
+});
+
+// 多個檔案上傳avatar欄位
+app.post('/try-uploads', upload.array('photo'), (req,res) => {
+    console.log(req.files);
+    // res.json(req.file);
+    res.json({
+        file: req.files,
+        body: req.body
+    })
 });
 
 // app.get("/", (req, res) => {

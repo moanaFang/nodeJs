@@ -1,5 +1,6 @@
 /*參考網站
 body-parser: https://www.npmjs.com/package/body-parser
+multer: https://www.npmjs.com/package/multer#readme
 urlencoded true : https://segmentfault.com/a/1190000004407008
 */
 
@@ -13,8 +14,10 @@ body-parser
 middleware
   client 發送 request, 會有檔頭、主體，在進到路由比對符合哪個路由，
   比對到，再進到路由的callback function前，會先經過middleware，
-  middleware 做處理，處理head、body的資料，body-parser 處理 http 的 body，
-  處理好，塞到req物件的body裡面。
+  middleware 做處理，處理head、body的資料。
+  middleware 處理 http 的 body 物件
+    body-parser，將處理好的 req 物件的 body 裡面。
+    Multer，將處理好的 req 物件的 file/files 裡面。
 */
 
 /*form
@@ -72,6 +75,10 @@ Postman 複雜 可以做檔案上傳處理*/
   json
     Body->raw
       {name:'Moana',age:18}
+
+  multipart
+    Body->form-data
+      avatar/photo 上傳檔案
 */
 
 /*form feedback tooltip
