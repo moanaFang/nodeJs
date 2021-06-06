@@ -58,3 +58,23 @@ multipart/form-data 上傳檔案
       ar[7] = 12
       ar.length 索引長度，不是元素的總數
 */
+
+/*測試Restful API
+REST Client 簡單
+Postman 複雜 可以做檔案上傳處理*/
+
+/*Postman
+  x-www-form-urlencoded
+    Body->x-www-form-urlencoded
+      name Moana
+      age 18
+
+  json
+    Body->raw
+      {name:'Moana',age:18}
+*/
+
+/*form feedback tooltip
+novalid
+require
+*/

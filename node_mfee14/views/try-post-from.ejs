@@ -1,0 +1,38 @@
+<%- include('parts/html-head') %>
+<%- include('parts/navbar') %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">表單測試</h5>
+          
+          <form method="post" novalidate>
+            <div class="form-group">
+              <label for="email" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="email" name="email" required>
+              <small class="form-text text-muted"><%= email %></small>
+            </div>
+            <div class="form-group">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" name="password">
+              <small class="form-text text-muted"><%= password %></small>
+            </div>
+            <div class="form-group form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1" name="exampleCheck1" value="1">
+              <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <div class="form-group form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1" name="exampleCheck1" value="2">
+              <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('parts/scripts') %>
+<%- include('parts/html-foot') %>
