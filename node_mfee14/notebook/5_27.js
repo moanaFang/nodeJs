@@ -1,7 +1,10 @@
 /*參考文件
 jetbrains: https://www.jetbrains.com/webstorm/
 */
-
+/*啟動服務指令
+server: nodemon .\src\index.js
+browser: http://localhost:3001/
+ */
 /*安裝node.js
 下載
 14-LTS 長期，優點: 漏洞少

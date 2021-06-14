@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="bootstrap-4.6.0-dist/css/bootstrap.css">
+  <link rel="stylesheet" href="fontawesome/css/all.css">
+  <title>a</title>
+</head>
+<body>
+  <div class="container">
+    <!-- <form name="form1" method="post" novalidate onsubmit="send(); return false"> -->
+      <form name="form1" style="display: none;">
+        <div class="form-group">
+          <label for="avatar" class="form-label">大頭貼</label>
+          <input type="file" class="form-control" id="avatar" name="avatar">
+        </div>
+      <!-- 
+      預設type都是submit
+      可以用input/button作為按鈕
+      <button type="submit" class="btn btn-primary">btn 1</button>
+      <button type="submit" class="btn btn-primary">btn 2</button> -->
+    </form> 
+    <button type="submit" class="btn btn-primary" onclick="avatar.click()">上傳檔案</button>
+
+    <img src="" alt="" id="myimg">
+  </div>
+
+  <script src="lib/jquery-3.5.1.js"></script>
+  <script src="bootstrap-4.6.0-dist/js/bootstrap.bundle.js"></script>
+  <script>
+    const avatar = $('#avatar')
+    // 傳統function，可以變更裡面的this
+    avatar.on('change', () => {
+      console.log(this)
+      console.log(event.target) //事件觸發的來源 (最內層的元素)
+      console.log(event.currentTarget) //註冊事件處理器的那個物件
+      
+      const fd = new FormData(document.form1) //打包所有欄位
+
+      fetch('/try-upload', {
+        method: 'POST',
+        body: fd
+      })
+      .then(r => r.json())//response的物件，沒有辦法直接拿到裡面的內容
+      .then(obj=>{
+          console.log(obj)
+          if(obj.filename){
+              myimg.src = '/img/' + obj.filename;
+          }
+      })
+    })
+  </script>
+</body>
+</html>

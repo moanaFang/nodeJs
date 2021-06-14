@@ -6,9 +6,16 @@ const port = process.env.port || 3000;
 
 const { urlencoded } = require("express");
 const express = require("express");
-const multer = require('multer');
-const upload = multer({dest:'tmp_uploads/'}); //設定上傳暫存目錄
-const {v4: uuidv4} = require('uuid'); //將v4物件的名稱改為uuidv4 
+
+/*----------------------------------------*/
+// const multer = require('multer');
+// const upload = multer({dest:'tmp_uploads/'}); //設定上傳暫存目錄
+// const {v4: uuidv4} = require('uuid'); //將v4物件的名稱改為uuidv4 
+
+const upload = require(__dirname + '/modules/upload-img'); //透過upload呼叫single、array...
+
+/*----------------------------------------*/
+
 const fs = require('fs');
 
 const app = express();
@@ -68,26 +75,40 @@ app.get('/try-upload', (req,res) => {
     res.render('try-upload');
 })
 
-const extMap = {
-    'image/png' : '.png',
-    'image/jpeg' : '.jpg',
-};
+// const extMap = {
+//     'image/png' : '.png',
+//     'image/jpeg' : '.jpg',
+// };
 
 // 單一檔案上傳avatar欄位
-app.post('/try-upload', upload.single('avatar'),async (req,res) => {
+// app.post('/try-upload', upload.single('avatar'), async (req, res)=>{
+//     console.log(req.file);
+
+//     // let newName = '';
+//     // if(extMap[req.file.mimetype]){
+//     //     newName = uuidv4() + extMap[req.file.mimetype];
+//     //     await fs.promises.rename(req.file.path, './public/img/' + newName);
+//     // }
+
+//     res.json({
+//         filename: req.file,
+//         body: req.body
+//     });
+// });
+
+app.post('/try-upload', upload.single('avatar'), async (req, res)=>{
     console.log(req.file);
-    // res.json(req.file);
-    // 上傳成功有圖: http://localhost:3001/img/83f98c7d-e252-4d07-aca3-5c95e0ef61b1.jpg
-    let newName = '';
-    if(extMap[req.file.mimetype]) {
-        newName = uuidv4() + extMap[req.file.mimetype];
-        await fs.promises.rename(req.file.path, './public/img/' + newName)
-    }
+
+    // let newName = '';
+    // if(extMap[req.file.mimetype]){
+    //     newName = uuidv4() + extMap[req.file.mimetype];
+    //     await fs.promises.rename(req.file.path, './public/img/' + newName);
+    // }
+
     res.json({
-        file: req.file,
-        body: req.body,
-        newName
-    })
+        filename: req.file && req.file.filename, //短路求值，錯誤先行
+        body: req.body
+    });
 });
 
 // 多個檔案上傳avatar欄位

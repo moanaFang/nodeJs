@@ -11,7 +11,11 @@ const extMap = {
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, __dirname + '/../../public/img'); //null，錯誤先行，需額外做錯誤處理
+
+    //null，錯誤先行，需額外做錯誤處理
+    // __dirname + '/../../public/img，以目前js所在位置為參考位置
+    // __dirname，位置明確，沒有使用，檔案搬動，啟動時會有問題 
+    cb(null, __dirname + '/../../public/img'); 
   },
   filename: (req, file, cb) => {
     let ext = extMap[file.mimetype];
@@ -22,3 +26,5 @@ const storage = multer.diskStorage({
 const fileFilter = (req, file, cb) => {
   cb(null, !!extMap[file.mimetype]); //!! 轉boolean值
 }
+
+module.exports = multer({storage, fileFilter});

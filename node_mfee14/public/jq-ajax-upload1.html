@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="bootstrap-4.6.0-dist/css/bootstrap.css">
+  <link rel="stylesheet" href="fontawesome/css/all.css">
+  <title>a</title>
+</head>
+<body>
+  <div class="container">
+    <form name="form1" method="post" novalidate onsubmit="send(); return false">
+      <div class="form-group">
+        <label for="avatar" class="form-label">大頭貼</label>
+        <!-- accept="" 接受什麼類型, image/* 第一個主類型，第二個延伸類型-->
+        <input type="file" class="form-control" id="avatar" name="avatar" accept="image/*">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form> 
+    <img src="" alt="" id="myimg">
+  </div>
+  <script src="lib/jquery-3.5.1.js"></script>
+  <script src="bootstrap-4.6.0-dist/js/bootstrap.bundle.js"></script>
+  <script>
+
+    const send = ()=>{
+
+    const fd = new FormData(document.form1) //打包所有欄位
+
+    // 用fetch一定會用到2個then
+    fetch('/try-upload', {
+        method: 'POST',
+        body: fd
+    })
+    .then(r => r.json())//response的物件，沒有辦法直接拿到裡面的內容
+    .then(obj=>{
+        console.log(obj)
+        myimg.src = '/img/' + obj.filename
+    });
+    };
+  </script>
+</body>
+</html>

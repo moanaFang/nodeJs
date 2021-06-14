@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="bootstrap-4.6.0-dist/css/bootstrap.css">
+  <link rel="stylesheet" href="fontawesome/css/all.css">
+  <title>a</title>
+</head>
+<body>
+  <div class="container">
+    <form name="form1" method="post" novalidate onsubmit="send(); return false">
+      <div class="form-group">
+        <label for="avatar" class="form-label">大頭貼</label>
+        <input type="file" class="form-control" id="avatar" name="avatar">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form> 
+    <img src="" alt="" id="myimg">
+  </div>
+
+  <script src="lib/jquery-3.5.1.js"></script>
+  <script src="bootstrap-4.6.0-dist/js/bootstrap.bundle.js"></script>
+  <script>
+
+    const send = ()=>{
+
+      const fd = new FormData(document.form1) //打包所有欄位
+
+      $.ajax({
+        method: "POST",
+        url: "/try-upload",
+        data: fd,
+        success: function (data) {
+          console.log(data)
+          if(data.filename) {
+            myimg.src = '/img/' + data.filename
+          }
+        },
+        error: function (error) {
+
+        },
+        contentType: false, //避免jQuery將FormData物件轉成字串
+        processData: false //避免jQuery將FormData物件轉成字串
+      })
+    }
+  </script>
+</body>
+</html>
