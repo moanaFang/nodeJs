@@ -9,4 +9,6 @@ formData 沒有外觀的表單資料
 
 Uncaught TypeError Illegal invocation: https://www.itread01.com/content/1548568112.html
 Function.prototype.bind(): https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
+
+箭頭函式不能改this，傳統的function可以
 */

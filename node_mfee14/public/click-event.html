@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>click-event</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+</head>
+<body>
+  <!-- 行內的onclick -->
+  <!-- 傳統寫法，只能一對一 -->
+  <button id="btn1" onclick="console.log(1)">btn 1</button>
+  <br>
+  <button id="btn2">btn 2</button>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script>
+    /*不管是建立箭頭，抑或是匿名函式，都相當於建立一個新的 function
+    1.(event) => {console.log(3)} 
+    2.function(event) {console.log(2)}
+    
+    相同寫法，不同處理器
+     1.<button id="btn1" onclick="console.log(1)">btn 1</button>
+     2.btn1.addEventListener('click', (event) => {
+        console.log(3)
+      })
+    */
+
+      const f = (event) => {
+        console.log(5)
+        console.log(event.target)
+      }
+
+      // 寫在標籤的屬性裡面
+      const btn1 = document.querySelector('#btn1');
+
+      // 如果定義行內的onclick，這裡的onclick會變成它的屬性，所以再定義一次，它會取代行內的onclick的事件
+      // 把這裡的function變成另外一個變數，設定給其他的onclick，可以監聽多個來源
+      // 行內與這裡的事件定義會衝突
+      btn1.onclick = function(event) {
+        console.log(2)
+      }
+
+      // 用addEventListener可以註冊很多個function
+      // 建立一個新的function
+      // 新的寫法
+      // 一對多、多對一      
+      btn1.addEventListener('click', (event) => {
+        console.log(3)
+      })
+
+      btn1.addEventListener('click', (event) => {
+        console.log(4)
+      })
+
+      // 註冊3次，f事件處理器只出現1次，做3次跟做1次是一樣的
+      // btn1.addEventListener('click', f)
+      // btn1.addEventListener('click', f)
+      // btn1.addEventListener('click', f)
+      
+      //兩個來源同一個事件處理器
+      btn1.addEventListener('click', f)
+      btn2.addEventListener('click', f)
+
+  </script>
+</body>
+</html>
