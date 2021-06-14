@@ -35,7 +35,7 @@
     avatar.on('change', () => {
       console.log(this)
       console.log(event.target) //事件觸發的來源 (最內層的元素)
-      console.log(event.currentTarget) //註冊事件處理器的那個物件
+      console.log(event.currentTarget) //註冊事件處理器的哪個物件
       
       const fd = new FormData(document.form1) //打包所有欄位
 

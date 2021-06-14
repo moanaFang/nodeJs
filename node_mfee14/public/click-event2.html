@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>click-event2</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <style>
+    .box {
+      background-color: #6aaae2;
+    }
+  </style>
+</head>
+<!-- body是最外層的container(容器) -->
+<body>
+  <h1>釐清event target和event currentTarget</h1>
+  
+  <!-- 如果有20顆按鈕，會想用迴圈註冊，20顆按鈕的事件處理器。另外一個做法，直接註冊container的事件處理器，再去區別點到是誰? 有時候這麼做比較簡單 -->
+
+  <!-- body裡面內層的，一樣是容器，裡面是元素 -->
+  <div class="box">
+    <!-- 內容btn 1它本身不是一個element，所以target是這個button -->
+    <button id="btn1" onclick="console.log(1)">btn 1</button>
+    <br>
+    <button id="btn2">btn 2</button>
+    <br>
+    <br>
+    <!-- 結果是span，不是button，因為span標籤在button裡面，點到字中間的時候，是span -->
+    <button id="btn1" onclick="console.log(1)"><span>btn 1</span></button>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script>
+      const f = (event) => {
+        // 結果<div class='box'></div>
+        // 事件觸發的來源(最內層的元素)
+        console.log(event.target)
+
+        // 結果<body></body>
+        // 註冊事件處理器的那個物件
+        console.log(event.currentTarget)
+      }
+
+      // currentTarget，當初註冊事件處理器是誰?
+      // 參考頁面 jq-ajax-upload3.html
+      document.body.addEventListener('click', f)
+
+      // 點到空白，不會點到body，body本身是空的，它是有外觀，沒有東西占滿白色的地方，點它沒有效果
+  </script>
+</body>
+</html>
