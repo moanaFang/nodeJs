@@ -121,6 +121,38 @@ app.post('/try-uploads', upload.array('photo'), (req,res) => {
     })
 });
 
+app.get('/pending', (req, res) => {
+
+})
+
+// action、id是代稱
+
+// 不會有頁面，因為路由分3段，用2段會找不到頁面
+// 3段，http://localhost:3001/my-params1/edit/15，edit字串放到action，15字串放到id
+// 2段，http://localhost:3001/my-params1/edit
+// 路由是代稱的話，會去解析
+// app.get('/my-params1/:action/:id', (req, res) => {
+//     res.json(req.params)
+// })
+
+// 加?問號表示可有可無
+// 3段，http://localhost:3001/my-params1/edit/456
+// 4段，http://localhost:3001/my-params1/edit/456/7 找不到頁面
+// app.get('/my-params1/:action?/:id?', (req, res) => {
+//     res.json(req.paramas)
+// })
+
+// *沒有變數名稱，拿到的會是array，此外，它也容易搞混，可以:代稱
+app.get('/my-params1/*/*?', (req, res) => {
+    res.json(req.params)
+})
+
+// '/my-params1/hello'，這個路由要放在/my-params1前面，不然會被擋到
+// 越特殊的放越前面，越寬鬆的放越後面(很多路由都會符合)
+// 要符合定義的路由，多一段或少一段，都不行
+
+
+
 // network 有 request headers，沒有 response headers,伺服器還沒回應。
 // 瀏覽器timeout才會回應或是斷線。
 // 客戶端有連到server端，server端一直沒有回應。客戶端收不到資料。
